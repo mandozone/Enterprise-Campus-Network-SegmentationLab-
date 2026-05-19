@@ -2,6 +2,12 @@
 
 > A Cisco Packet Tracer simulation of an enterprise campus network — **9 VLANs · 18 departments · 9 switches · 9 ASA5505 firewalls · Router-on-a-Stick · 0% packet loss**.
 
+## View the project
+
+**Live project site:** https://mandozone.github.io/Enterprise-Campus-Network-SegmentationLab-/
+
+If you are viewing this repository on GitHub, start with the live site above or read the summary below. The `site/` folder contains the rendered portfolio page files, so opening `site/index.html` inside GitHub will show source code rather than the website.
+
 **All 9 firewalls in this lab were configured by Romando Wright.**
 
 ![Final hierarchical topology](site/assets/topology-hierarchical.jpg)
