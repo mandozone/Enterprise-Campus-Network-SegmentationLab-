@@ -1,36 +1,115 @@
 # Enterprise Campus Network Segmentation Lab
 
-A Cisco Packet Tracer simulation of an enterprise campus network with **VLAN segmentation**, **802.1Q trunking**, **hierarchical switching**, and **Router-on-a-Stick inter-VLAN routing** across 18 departments — secured by a **nine-firewall ASA5505 perimeter**.
+> A Cisco Packet Tracer simulation of an enterprise campus network — **9 VLANs · 18 departments · 9 switches · 9 ASA5505 firewalls · Router-on-a-Stick · 0% packet loss**.
 
-> **All 9 firewalls were configured by Romando Wright.**
+**All 9 firewalls in this lab were configured by Romando Wright.**
 
-## At a glance
+![Final hierarchical topology](site/assets/topology-hierarchical.jpg)
+
+---
+
+## TL;DR for Recruiters
 
 | | |
 |---|---|
-| VLANs | 9 (VLAN 10–90) |
-| Departments | 18 |
-| Switches | 9 (1 core/distribution + 8 access) |
-| Router | 1 (Router-on-a-Stick) |
-| Firewalls | 9 × Cisco ASA5505 |
-| Packet loss | 0% across inter-VLAN paths |
-| Platform | Cisco Packet Tracer · Cisco IOS 15.1 · Kali Linux 2025.2 |
+| **Problem** | A flat 18-department network — single broadcast domain, no segmentation, no protection against lateral movement. |
+| **What I built** | Three-tier hierarchical Cisco network: 1 router, 1 core/distribution switch, 9 access switches, 9 VLANs, 9 ASA5505 firewalls. |
+| **How I validated it** | Cisco IOS CLI evidence: `show vlan brief`, `show ip interface brief`, `write memory`, and a 4/4 ping at 0% packet loss between VLANs. |
+| **Why it matters** | Maps directly to the standard Cisco enterprise design pattern used in production campus networks. |
 
-## Site
+## Skills demonstrated
 
-A polished, responsive web presentation of this lab lives in [`site/`](./site/). Open `site/index.html` in any browser, or serve it locally:
+`Cisco IOS CLI` · `VLAN Design` · `802.1Q Trunking` · `Router-on-a-Stick` · `Inter-VLAN Routing` · `Hierarchical Network Design` · `Cisco ASA5505 Firewall Deployment` · `CLI Troubleshooting` · `End-to-End Network Validation` · `Cisco Packet Tracer`
+
+## Architecture overview
+
+```
+                  Router0   (Gig0/0 — Router-on-a-Stick)
+                                 │
+                  [ Switch3 — Core / Distribution ]
+                                 │
+        ┌──────┬──────┬──────┬──┴──┬──────┬──────┬──────┐
+       SW1   SW2    SW4    SW5    SW6    SW7    SW8    SW9
+        │     │      │      │      │      │      │      │
+       PCs   PCs    PCs    PCs    PCs    PCs    PCs    PCs
+                  ── ASA5505 perimeter & departmental ──
+```
+
+| Layer | Role | Device(s) |
+|---|---|---|
+| Routing | Inter-VLAN routing via 802.1Q subinterfaces | `Router0` (Cisco 1941) |
+| Core / Distribution | VLAN aggregation, trunk uplinks | `Switch3` (Catalyst 2960-24TT) |
+| Access | Per-department ports, VLAN assignment | `SW1, SW2, SW4–SW9` |
+| Security Perimeter | Inter-zone policy & stateful inspection | `9 × Cisco ASA5505` |
+
+## VLAN segmentation plan
+
+| VLAN | Name | Departments | Subnet | Gateway |
+|---|---|---|---|---|
+| 10 | `ACCOUNTING` | Accounting / Payroll | `192.168.10.0/24` | `192.168.10.1` |
+| 20 | `HR-FINANCE` | HR / Finance | `192.168.20.0/24` | `192.168.20.1` |
+| 30 | `IT-SECURITY` | IT / Public Safety | `192.168.30.0/24` | `192.168.30.1` |
+| 40 | `FACILITIES` | Dining / Facilities | `192.168.40.0/24` | `192.168.40.1` |
+| 50 | `UNION` | Union / Employee Relations | `192.168.50.0/24` | `192.168.50.1` |
+| 60 | `SALES` | Sales / Marketing | `192.168.60.0/24` | `192.168.60.1` |
+| 70 | `MANUFACTURING` | Customer Service / Manufacturing | `192.168.70.0/24` | `192.168.70.1` |
+| 80 | `PR-CLINIC` | PR / Clinic | `192.168.80.0/24` | `192.168.80.1` |
+| 90 | `DIGITAL-MEDIA` | Digital Media / Public Relations | `192.168.90.0/24` | `192.168.90.1` |
+
+## Firewall work — Romando Wright
+
+All nine Cisco ASA5505 firewalls in this lab were built and configured by Romando Wright:
+
+- Interface assignment on each ASA (inside / outside / DMZ-style zones)
+- Security-level configuration so higher-trust zones can initiate to lower-trust zones
+- Inter-zone policy preventing cross-department lateral movement
+- Integration with the Switch3 core/distribution layer and the Router0 Router-on-a-Stick
+- End-to-end verification — 4/4 ping replies at 0% packet loss across the inter-VLAN path
+
+## Evidence — what each screenshot proves
+
+| Screenshot | Proves |
+|---|---|
+| [`topology-overview.jpg`](site/assets/topology-overview.jpg) | Early topology layout — departments grouped under access switches |
+| [`topology-trunking.jpg`](site/assets/topology-trunking.jpg) | First 802.1Q trunk wired between access switches |
+| [`topology-hierarchical.jpg`](site/assets/topology-hierarchical.jpg) | Full Router → Core → Access hierarchy with every link green |
+| [`topology-final-master.jpg`](site/assets/topology-final-master.jpg) | `master network.pkt` — final completed file |
+| [`switch-vlan-creation.jpg`](site/assets/switch-vlan-creation.jpg) | Cisco IOS CLI creating VLANs 10 → 90 with names |
+| [`switch-show-vlan-brief.jpg`](site/assets/switch-show-vlan-brief.jpg) | `show vlan brief` — all 9 VLANs ACTIVE in the database |
+| [`router-subinterface-config.jpg`](site/assets/router-subinterface-config.jpg) | Router0 subinterfaces with `encapsulation dot1Q` + IP |
+| [`router-encap-write-memory.jpg`](site/assets/router-encap-write-memory.jpg) | Live troubleshooting: VID conflict caught and fixed, `write memory` |
+| [`router-show-ip-interface.jpg`](site/assets/router-show-ip-interface.jpg) | `show ip interface brief` — `Gig0/0.10` and `Gig0/0.20` up/up |
+| [`ping-accounting.jpg`](site/assets/ping-accounting.jpg) | 4/4 replies, 0% loss from Accounting DEPT to its gateway |
+
+Original unedited photos are preserved under [`site/assets/originals/`](site/assets/originals/).
+
+## What recruiters should notice
+
+1. **Real Cisco IOS CLI work, not slideware.** Every claim is backed by a screenshot in the [Evidence](#evidence--what-each-screenshot-proves) table.
+2. **Standard enterprise design pattern.** Three-tier hierarchy with explicit segmentation — the same model used in production campus networks.
+3. **Live troubleshooting.** The router-encap screenshot shows a real diagnostic moment: an `encapsulation` ordering error caught and corrected from the CLI.
+4. **End-to-end verification.** A ping isn't a guess — `Sent = 4, Received = 4, Lost = 0 (0% loss)` from one VLAN host to another VLAN's gateway proves Router-on-a-Stick is actually routing.
+
+## View the site
+
+The polished web presentation lives in [`site/`](./site/):
 
 ```bash
 cd site
 python3 -m http.server 8080
+# → http://localhost:8080/
 ```
 
-For GitHub Pages, point Pages at the `/site` directory.
+Or open [`site/index.html`](./site/index.html) directly. For GitHub Pages, point Pages at the `/site` directory on `main`.
 
-## Primary file
+## Project files
 
-`master network.pkt` — final completed topology with 18 departments, 9 switches, Router-on-a-Stick, and nine ASA5505 firewalls.
+- [`enterprise-campus-network-lab (2).pdf`](./enterprise-campus-network-lab%20\(2\).pdf) — long-form writeup
+- [`site/`](./site/) — recruiter-facing static site (HTML + CSS + image evidence)
+- `master network.pkt` — final saved Packet Tracer file (not in repo)
 
-## Documentation
+## Credits
 
-Full project writeup with topology evolution, VLAN plan, configuration, troubleshooting, and Phase 2 roadmap: [`enterprise-campus-network-lab (2).pdf`](./enterprise-campus-network-lab%20\(2\).pdf).
+- **Network design, configuration, troubleshooting, and validation:** Romando Wright
+- **All 9 ASA5505 firewalls:** Romando Wright
+- **Platform:** Cisco Packet Tracer · Cisco IOS 15.1 · Kali Linux 2025.2 (VirtualBox)
