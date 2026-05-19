@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Enterprise Campus Network Segmentation Lab — Romando Wright</title>
+  <meta name="description" content="A Cisco Packet Tracer simulation of an enterprise campus network with VLAN segmentation, 802.1Q trunking, hierarchical switching, Router-on-a-Stick inter-VLAN routing, and nine ASA firewalls configured by Romando Wright." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-row">
+      <div class="brand">
+        <span class="brand-mark">GENMONXXX</span>
+        <span class="brand-sep">/</span>
+        <span class="brand-name">ENTERPRISE-CAMPUS-NETWORK-LAB</span>
+      </div>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#overview">Overview</a>
+        <a href="#engineer">Engineer</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#vlans">VLANs</a>
+        <a href="#firewalls">Firewalls</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#roadmap">Roadmap</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <p class="eyebrow">Cisco Packet Tracer · Kali Linux 2025.2 · Cisco IOS 15.1</p>
+          <h1>Enterprise Campus Network <span class="accent">Segmentation Lab</span></h1>
+          <p class="lede">A production-style simulation of an enterprise campus network: VLAN segmentation, 802.1Q trunking, hierarchical switching, Router-on-a-Stick inter-VLAN routing, and a perimeter built from nine Cisco ASA firewalls.</p>
+          <div class="tags">
+            <span class="tag">Cisco Packet Tracer</span>
+            <span class="tag">VLAN Segmentation</span>
+            <span class="tag">Router-on-a-Stick</span>
+            <span class="tag">802.1Q</span>
+            <span class="tag">Inter-VLAN Routing</span>
+            <span class="tag tag-accent">9 ASA Firewalls</span>
+          </div>
+          <div class="status-pill">
+            <span class="status-dot" aria-hidden="true"></span>
+            LAB COMPLETE — 0% PACKET LOSS
+          </div>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-num">9</span><span class="stat-label">VLANs</span></div>
+          <div class="stat"><span class="stat-num">18</span><span class="stat-label">Departments</span></div>
+          <div class="stat"><span class="stat-num">9</span><span class="stat-label">Switches</span></div>
+          <div class="stat"><span class="stat-num">9</span><span class="stat-label">ASA Firewalls</span></div>
+          <div class="stat"><span class="stat-num">1</span><span class="stat-label">Router (RoaS)</span></div>
+          <div class="stat"><span class="stat-num">0%</span><span class="stat-label">Packet Loss</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="firewalls-banner" class="banner-image">
+      <div class="container">
+        <figure class="banner-figure">
+          <img src="assets/network-firewalls-clean.jpeg" alt="Cisco Packet Tracer master topology — nine ASA5505 firewalls (ASA9–ASA20) distributed across the access switches, the core/distribution switch, and the eighteen department workstations." loading="eager" />
+          <figcaption>
+            Final master topology in Cisco Packet Tracer — nine ASA5505 firewalls deployed across the access layer with the core/distribution switch aggregating uplinks. All nine firewalls were configured by <strong>Romando Wright</strong>.
+            <a class="source-link" href="assets/network-firewalls.jpeg" target="_blank" rel="noopener">View original source photo →</a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="overview" class="section">
+      <div class="container">
+        <p class="section-kicker">Overview</p>
+        <div class="two-col">
+          <div>
+            <h2>From a flat, broken topology to a hierarchical enterprise network.</h2>
+            <p>This project simulates a small enterprise campus network using Cisco Packet Tracer. It demonstrates foundational network engineering and cybersecurity concepts: VLAN segmentation, 802.1Q trunking, centralized switching architecture, and inter-VLAN routing using Router-on-a-Stick.</p>
+            <p>The lab began as a flat, unstructured topology that quickly proved unstable and unscalable as departments were added. Without a core switch, trunk and routing conflicts emerged at scale. It was rebuilt from the ground up into a hierarchical enterprise architecture with a dedicated core/distribution switch and multiple departmental access switches — mirroring real-world enterprise infrastructure design patterns.</p>
+          </div>
+          <aside class="card primary-file">
+            <p class="card-eyebrow">📁 Primary File</p>
+            <p class="card-title"><code>master network.pkt</code></p>
+            <p class="card-meta">Final completed topology · 18 departments · 9 switches · Router-on-a-Stick · 9 ASA firewalls</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="engineer" class="section section-alt">
+      <div class="container engineer-grid">
+        <div class="engineer-card">
+          <p class="section-kicker">Engineer of Record</p>
+          <h2>All 9 firewalls were configured by <span class="accent">Romando Wright</span>.</h2>
+          <p>Every Cisco ASA5505 firewall in this topology — perimeter, departmental, and the command-and-control segment guarding the private data zone — was designed, deployed, and verified by Romando Wright. That includes interface assignment, security-level configuration, NAT/PAT, access-list policy, inter-zone inspection, and integration with the core/distribution switch.</p>
+          <ul class="bullets">
+            <li>9 × ASA5505 firewalls — interface, security-level, and zone configuration</li>
+            <li>Policy hardening against cross-VLAN lateral movement</li>
+            <li>Integration with the Switch3 core and Router0 Router-on-a-Stick</li>
+            <li>End-to-end verification — 4/4 replies, 0% packet loss across inter-VLAN paths</li>
+          </ul>
+        </div>
+        <figure class="engineer-figure">
+          <img src="assets/project-overview.jpeg" alt="Project overview page showing the Enterprise Campus Network Segmentation Lab title, tags, and metrics." loading="lazy" />
+          <figcaption>Project cover — GENMONXXX / Enterprise-Campus-Network-Lab</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="architecture" class="section">
+      <div class="container">
+        <p class="section-kicker">Network Architecture</p>
+        <h2>Three-tier hierarchical design.</h2>
+        <p class="prose">Router0 sits at the top providing inter-VLAN routing via subinterfaces. Switch3 is the core/distribution layer, aggregating every trunk link. Eight access switches fan out to departmental PCs, with the ninth switch hosting the command-and-control private data segment behind the perimeter firewall.</p>
+
+        <pre class="topology-ascii" aria-label="ASCII topology diagram">
+                  Router0   (Gig0/0 — Router-on-a-Stick)
+                                 │
+                  [ Switch3 — Core / Distribution ]
+                                 │
+        ┌──────┬──────┬──────┬──┴──┬──────┬──────┬──────┐
+       SW1   SW2    SW4    SW5    SW6    SW7    SW8    SW9
+        │     │      │      │      │      │      │      │
+       PCs   PCs    PCs    PCs    PCs    PCs    PCs    PCs
+                  ── ASA5505 perimeter & departmental ──
+        </pre>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>Layer</th><th>Role</th><th>Device(s)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Routing</strong></td><td>Inter-VLAN routing via 802.1Q subinterfaces</td><td><code>Router0</code></td></tr>
+              <tr><td><strong>Core / Distribution</strong></td><td>VLAN aggregation, trunk uplinks, CDP visibility</td><td><code>Switch3</code></td></tr>
+              <tr><td><strong>Access</strong></td><td>Per-department ports, VLAN assignment</td><td><code>SW1, SW2, SW4–SW9</code></td></tr>
+              <tr><td><strong>Security Perimeter</strong></td><td>Inter-zone policy, NAT, stateful inspection</td><td><code>9 × ASA5505</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="vlans" class="section section-alt">
+      <div class="container">
+        <p class="section-kicker">VLAN Segmentation Plan</p>
+        <h2>Logical separation on shared physical infrastructure.</h2>
+        <p class="prose">Without VLANs, all 18 departments share a single broadcast domain. VLANs create logically separate networks on the same cabling — a compromised Accounting workstation cannot reach HR or Finance at Layer 2.</p>
+
+        <div class="table-wrap">
+          <table class="data-table vlan-table">
+            <thead>
+              <tr><th>VLAN</th><th>Department</th><th>Subnet</th><th>Gateway</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="vlan-badge v10">10</span></td><td>Accounting / Payroll</td><td><code>192.168.10.0/24</code></td><td><code>192.168.10.1</code></td></tr>
+              <tr><td><span class="vlan-badge v20">20</span></td><td>HR / Finance</td><td><code>192.168.20.0/24</code></td><td><code>192.168.20.1</code></td></tr>
+              <tr><td><span class="vlan-badge v30">30</span></td><td>IT / Public Safety</td><td><code>192.168.30.0/24</code></td><td><code>192.168.30.1</code></td></tr>
+              <tr><td><span class="vlan-badge v40">40</span></td><td>Dining / Facilities</td><td><code>192.168.40.0/24</code></td><td><code>192.168.40.1</code></td></tr>
+              <tr><td><span class="vlan-badge v50">50</span></td><td>Union / Employee Relations</td><td><code>192.168.50.0/24</code></td><td><code>192.168.50.1</code></td></tr>
+              <tr><td><span class="vlan-badge v60">60</span></td><td>Sales / Marketing</td><td><code>192.168.60.0/24</code></td><td><code>192.168.60.1</code></td></tr>
+              <tr><td><span class="vlan-badge v70">70</span></td><td>Customer Service / Manufacturing</td><td><code>192.168.70.0/24</code></td><td><code>192.168.70.1</code></td></tr>
+              <tr><td><span class="vlan-badge v80">80</span></td><td>PR / Clinic</td><td><code>192.168.80.0/24</code></td><td><code>192.168.80.1</code></td></tr>
+              <tr><td><span class="vlan-badge v90">90</span></td><td>Digital Media / Public Relations</td><td><code>192.168.90.0/24</code></td><td><code>192.168.90.1</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="config" class="section">
+      <div class="container">
+        <p class="section-kicker">Configuration Highlights</p>
+        <div class="config-grid">
+          <article class="config-card">
+            <h3>Layer 2 — 802.1Q Trunk</h3>
+            <p>802.1Q tagging stamps each frame with its VLAN ID so the receiving device routes it correctly. Without trunks, you'd need a separate physical cable for every VLAN.</p>
+<pre><code>Switch# configure terminal
+Switch(config)# interface range fa0/1 - 8
+Switch(config-if-range)# switchport mode trunk
+Switch(config-if-range)# switchport trunk encapsulation dot1q
+Switch(config-if-range)# end</code></pre>
+          </article>
+
+          <article class="config-card">
+            <h3>Layer 3 — Router-on-a-Stick</h3>
+            <p>Router-on-a-Stick uses subinterfaces — logical divisions of one physical interface, each tagged with a different VLAN ID. Each subinterface acts as the default gateway for its VLAN.</p>
+<pre><code>interface gig0/0
+ no shutdown
+!
+interface gig0/0.10
+ encapsulation dot1Q 10
+ ip address 192.168.10.1 255.255.255.0
+!
+interface gig0/0.20
+ encapsulation dot1Q 20
+ ip address 192.168.20.1 255.255.255.0</code></pre>
+          </article>
+
+          <article class="config-card">
+            <h3>VLAN Creation on Switch3</h3>
+            <p>All nine VLANs are created and named on the core/distribution switch, then propagated through trunks to access switches.</p>
+<pre><code>Switch(config)# vlan 10
+Switch(config-vlan)# name ACCOUNTING
+Switch(config-vlan)# vlan 20
+Switch(config-vlan)# name HR-FINANCE
+Switch(config-vlan)# vlan 30
+Switch(config-vlan)# name IT-SECURITY
+! ... through VLAN 90 DIGITAL-MEDIA
+Switch(config-vlan)# end
+Switch# show vlan brief</code></pre>
+          </article>
+
+          <article class="config-card">
+            <h3>Verification — Inter-VLAN Ping</h3>
+            <p>From the Accounting DEPT workstation to the VLAN 10 gateway: <strong>4/4 replies, 0% packet loss</strong>. Inter-VLAN routing confirmed end-to-end.</p>
+<pre><code>C:\&gt; ping 192.168.10.1
+
+Pinging 192.168.10.1 with 32 bytes of data:
+Reply from 192.168.10.1: bytes=32 time=15ms TTL=255
+Reply from 192.168.10.1: bytes=32 time&lt;1ms TTL=255
+Reply from 192.168.10.1: bytes=32 time&lt;1ms TTL=255
+Reply from 192.168.10.1: bytes=32 time&lt;1ms TTL=255
+
+Packets: Sent = 4, Received = 4, Lost = 0 (0% loss)</code></pre>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="firewalls" class="section section-alt firewalls-section">
+      <div class="container">
+        <p class="section-kicker">Security Perimeter</p>
+        <h2>Nine ASA5505 firewalls — configured by Romando Wright.</h2>
+        <p class="prose">The companion topology embeds ASA5505 appliances between the access layer and the command-and-control private data segment. Each firewall enforces inter-zone policy independently, so a breach in one department cannot pivot across the campus.</p>
+
+        <div class="firewall-grid">
+          <div class="firewall-tile"><span class="fw-num">FW1</span><span class="fw-label">Accounting / Payroll edge</span></div>
+          <div class="firewall-tile"><span class="fw-num">FW2</span><span class="fw-label">HR / Finance edge</span></div>
+          <div class="firewall-tile"><span class="fw-num">FW3</span><span class="fw-label">IT / Public Safety edge</span></div>
+          <div class="firewall-tile"><span class="fw-num">FW4</span><span class="fw-label">Dining / Facilities edge</span></div>
+          <div class="firewall-tile"><span class="fw-num">FW5</span><span class="fw-label">Union / Employee Relations</span></div>
+          <div class="firewall-tile"><span class="fw-num">FW6</span><span class="fw-label">Sales / Marketing edge</span></div>
+          <div class="firewall-tile"><span class="fw-num">FW7</span><span class="fw-label">Customer Service / Manufacturing</span></div>
+          <div class="firewall-tile"><span class="fw-num">FW8</span><span class="fw-label">PR / Clinic edge</span></div>
+          <div class="firewall-tile fw-highlight"><span class="fw-num">FW9</span><span class="fw-label">Command &amp; Control private data segment</span></div>
+        </div>
+
+        <figure class="inset-figure">
+          <img src="assets/network-firewalls-clean.jpeg" alt="Cisco Packet Tracer view of the nine ASA5505 firewalls deployed in line between the access switches and the protected department segments." loading="lazy" />
+          <figcaption>
+            Master topology — ASA5505 perimeter built and configured end-to-end by Romando Wright.
+            <a class="source-link" href="assets/network-firewalls.jpeg" target="_blank" rel="noopener">View original source photo →</a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="troubleshooting" class="section">
+      <div class="container">
+        <p class="section-kicker">Troubleshooting Scenarios</p>
+        <h2>Real failures encountered during the build — not simulated.</h2>
+
+        <div class="issue-grid">
+          <article class="issue-card">
+            <header><span class="issue-tag">VID Conflict</span><h3>Subinterface VID conflict</h3></header>
+            <p class="issue-error"><code>%Configuration of multiple subinterfaces of the same main interface with the same VID is not permitted.</code></p>
+            <p><strong>Root cause:</strong> VLAN 10 encapsulation was assigned to the wrong subinterface (<code>gig0/0.20</code> instead of <code>gig0/0.10</code>).</p>
+            <p><strong>Fix:</strong> Re-entered <code>encapsulation dot1Q 10</code> on <code>gig0/0.10</code> and <code>encapsulation dot1Q 20</code> on <code>gig0/0.20</code>.</p>
+          </article>
+
+          <article class="issue-card">
+            <header><span class="issue-tag">Encapsulation Order</span><h3>IP before encapsulation</h3></header>
+            <p class="issue-error"><code>% Configuring IP routing on a LAN subinterface is only allowed if that subinterface is already configured as part of an IEEE 802.10, IEEE 802.1Q, or ISL VLAN.</code></p>
+            <p><strong>Root cause:</strong> <code>ip address</code> was entered before <code>encapsulation dot1Q</code>.</p>
+            <p><strong>Fix:</strong> Always configure encapsulation first, then assign the IP address.</p>
+          </article>
+
+          <article class="issue-card">
+            <header><span class="issue-tag">DTP Flap</span><h3>Trunk negotiation / interface flapping</h3></header>
+            <p class="issue-error"><code>%LINEPROTO-5-UPDOWN: Interface FastEthernet0/1, changed state to down<br/>%LINEPROTO-5-UPDOWN: Interface FastEthernet0/1, changed state to up</code></p>
+            <p>Expected DTP negotiation behavior. All interfaces stabilized to up/up after 802.1Q negotiation completed.</p>
+          </article>
+
+          <article class="issue-card">
+            <header><span class="issue-tag">Native VLAN</span><h3>Native VLAN mismatch</h3></header>
+            <p>CDP warnings; broadcast leaking across VLANs.</p>
+            <p><strong>Fix:</strong> <code>switchport trunk native vlan</code> must match on both ends.</p>
+          </article>
+
+          <article class="issue-card">
+            <header><span class="issue-tag">Topology</span><h3>Flat network failure → rebuild</h3></header>
+            <p>The original flat topology connected access switches directly to the router with no core switch, creating trunk and routing conflicts at scale. This forced a full redesign into the current three-tier hierarchical model.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section section-alt">
+      <div class="container">
+        <p class="section-kicker">Skills Demonstrated</p>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>Skill</th><th>What it proves</th></tr></thead>
+            <tbody>
+              <tr><td>VLAN creation &amp; naming</td><td>Broadcast domain segmentation</td></tr>
+              <tr><td>802.1Q trunk configuration</td><td>Multi-VLAN transport over single links</td></tr>
+              <tr><td>Access port assignment</td><td>Per-port traffic control at Layer 2</td></tr>
+              <tr><td>Router-on-a-Stick subinterfaces</td><td>Inter-VLAN routing without an L3 switch</td></tr>
+              <tr><td>Hierarchical topology design</td><td>Scalability and enterprise architecture thinking</td></tr>
+              <tr><td>ASA5505 firewall deployment</td><td>Perimeter security across nine zones</td></tr>
+              <tr><td>Subinterface / VID conflict diagnosis</td><td>CLI troubleshooting — not memorized config</td></tr>
+              <tr><td>Topology rebuild from failure</td><td>Engineering judgment, not just lab completion</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap" class="section">
+      <div class="container">
+        <p class="section-kicker">Phase 2 — Security Enhancements</p>
+        <h2>What's next.</h2>
+        <div class="roadmap-grid">
+          <div class="roadmap-item"><span class="rm-check" aria-hidden="true">☐</span> ACLs (least-privilege)</div>
+          <div class="roadmap-item"><span class="rm-check" aria-hidden="true">☐</span> Management VLAN 99</div>
+          <div class="roadmap-item"><span class="rm-check" aria-hidden="true">☐</span> Port Security</div>
+          <div class="roadmap-item"><span class="rm-check" aria-hidden="true">☐</span> DHCP Snooping</div>
+          <div class="roadmap-item"><span class="rm-check" aria-hidden="true">☐</span> BPDU Guard + PortFast</div>
+          <div class="roadmap-item"><span class="rm-check" aria-hidden="true">☐</span> SSH-only Management</div>
+          <div class="roadmap-item"><span class="rm-check" aria-hidden="true">☐</span> Disable Unused Ports</div>
+          <div class="roadmap-item"><span class="rm-check" aria-hidden="true">☐</span> DMZ VLAN</div>
+          <div class="roadmap-item"><span class="rm-check rm-done" aria-hidden="true">☑</span> Firewall (ASA5505) ×9</div>
+          <div class="roadmap-item"><span class="rm-check" aria-hidden="true">☐</span> Syslog / SIEM</div>
+          <div class="roadmap-item"><span class="rm-check" aria-hidden="true">☐</span> DHCP Services</div>
+          <div class="roadmap-item"><span class="rm-check" aria-hidden="true">☐</span> STP Tuning</div>
+        </div>
+
+        <blockquote class="takeaway">
+          <p class="takeaway-title">Key takeaway — the most technically valuable part was diagnosing what broke.</p>
+          <p>The most technically valuable part of this project wasn't writing configs that worked — it was diagnosing why they didn't. Understanding that a subinterface needs encapsulation before accepting an IP, that trunks must match on both ends, that a flat topology breaks at scale — that diagnostic process is what network engineering actually looks like. Rebuilding a broken topology into a working hierarchical enterprise network is the real lab.</p>
+        </blockquote>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div>
+        <p class="brand-mark">GENMONXXX / ENTERPRISE-CAMPUS-NETWORK-LAB</p>
+        <p class="footer-meta">Cisco IOS 15.1 · Kali Linux 2025.2 · Cisco Packet Tracer</p>
+      </div>
+      <div class="footer-credit">
+        <p>9 ASA5505 firewalls configured by <strong>Romando Wright</strong>.</p>
+        <p class="footer-meta">© <span id="year"></span> — Lab documentation site.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
